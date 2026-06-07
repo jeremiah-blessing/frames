@@ -3,7 +3,7 @@
 // exposureTime is in seconds (number) or null/undefined.
 // Returns { display, denominator } or null.
 export function shutterParts(exposureTime) {
-  if (exposureTime == null) return null;
+  if (exposureTime == null || !Number.isFinite(exposureTime) || exposureTime <= 0) return null;
   if (exposureTime >= 1) {
     const s = Number.isInteger(exposureTime) ? String(exposureTime) : exposureTime.toFixed(1);
     return { display: `${s}s`, denominator: 1 / exposureTime };

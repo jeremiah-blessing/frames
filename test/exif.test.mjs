@@ -25,6 +25,13 @@ test("shutterParts returns null when missing", () => {
   assert.equal(shutterParts(undefined), null);
 });
 
+test("shutterParts rejects non-positive and non-finite values", () => {
+  assert.equal(shutterParts(0), null);
+  assert.equal(shutterParts(-0.01), null);
+  assert.equal(shutterParts(NaN), null);
+  assert.equal(shutterParts(Infinity), null);
+});
+
 test("classifyTechnique zones", () => {
   assert.equal(classifyTechnique(100), "PANNING");
   assert.equal(classifyTechnique(250), "PANNING");
