@@ -50,3 +50,13 @@ test("photos.json does not contain render-only _strip field", async () => {
   const raw = await readFile("photos.json", "utf8");
   assert.doesNotMatch(raw, /_strip/, "the committed manifest must not carry render-only strip HTML");
 });
+
+test("rendered index.html has icon symbols and a lightbox strip container", async () => {
+  const html = await readFile("_site/index.html", "utf8");
+  assert.match(html, /id="ic-shutter"/);
+  assert.match(html, /id="ic-aperture"/);
+  assert.match(html, /id="ic-focal"/);
+  assert.match(html, /id="ic-iso"/);
+  assert.match(html, /id="lb-strip"/);
+  assert.doesNotMatch(html, /id="lb-meta"/); // old element removed
+});
