@@ -15,6 +15,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import exifr from "exifr";
+import { formatExif } from "./exif.mjs";
+import { renderStrip } from "./strip.mjs";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../..");
 const PHOTOS_DIR = path.join(ROOT, "photos");
@@ -29,23 +31,6 @@ const FALLBACK_WIDTH = 1000;
 const IMAGE_RE = /\.(jpe?g)$/i;
 
 // ── EXIF formatting ─────────────────────────────────────────────────────────
-
-function fmtShutter(t) {
-  if (t == null) return null;
-  if (t >= 1) return `${Number.isInteger(t) ? t : t.toFixed(1)}s`;
-  return `1/${Math.round(1 / t)}s`;
-}
-
-function fmtMeta(e) {
-  return [
-    fmtShutter(e.ExposureTime),
-    e.FNumber != null ? `f/${+e.FNumber.toFixed(1)}` : null,
-    e.FocalLength != null ? `${Math.round(e.FocalLength)}mm` : null,
-    e.ISO != null ? `ISO ${e.ISO}` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-}
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function fmtDate(d) {
@@ -141,6 +126,7 @@ function renderGrid(photos) {
           <source type="image/webp" srcset="${srcset}" sizes="${sizes}">
           <img loading="lazy" width="${p.width}" height="${p.height}" alt="${escapeHtml(p.caption)}" src="${p.fallback}">
         </picture>
+        ${renderStrip(p, { compact: true })}
       </a>`;
     })
     .join("\n");
@@ -183,7 +169,7 @@ async function main() {
       height: src.height,
       bytes: src.bytes,
       bytesLabel: fmtBytes(src.bytes),
-      meta: fmtMeta(src.exif),
+      ...formatExif(src.exif),
       caption: keptCaptions.has(src.file) ? keptCaptions.get(src.file) : seedCaption(src.exif, src.date),
       sizes,
       fallback,
@@ -196,10 +182,10 @@ async function main() {
 
   // Render page.
   const template = await readFile(TEMPLATE_PATH, "utf8");
-  const gridPhotos = photos.map((p) => ({ ...p, root: "" }));
+  const dataPhotos = photos.map((p) => ({ ...p, _strip: renderStrip(p) }));
   const html = template
-    .replace("{{GRID}}", renderGrid(gridPhotos))
-    .replace("{{DATA}}", JSON.stringify(photos))
+    .replace("{{GRID}}", renderGrid(photos))
+    .replace("{{DATA}}", JSON.stringify(dataPhotos))
     .replace("{{COUNT}}", String(photos.length));
   await writeFile(path.join(SITE_DIR, "index.html"), html);
 
