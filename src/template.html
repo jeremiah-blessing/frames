@@ -55,14 +55,43 @@
             background: none; border: 0; color: transparent; }
   .lb-nav.prev { left: 0; } .lb-nav.next { right: 0; }
   .lb-info { padding: .8rem 1rem 1.2rem; text-align: center; }
-  .lb-meta { font-family: var(--mono); font-size: .8rem; color: var(--accent); letter-spacing: .02em; }
-  .lb-cap { font-size: .85rem; color: var(--dim); margin-top: .35rem; }
+  .lb-cap { font-size: .85rem; color: var(--dim); margin-top: .55rem; }
+
+  /* EXIF strip (shared: grid hover + lightbox) */
+  .exif-strip { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+                font-family: var(--mono); font-size: .72rem; color: #fff; }
+  .exif-strip .icstat { display: inline-flex; align-items: center; gap: 4px; }
+  .exif-strip .ic { width: 13px; height: 13px; color: #fff; flex: 0 0 auto; }
+  .wbox { background: #fff; color: #111; font-weight: 700; font-size: .56rem;
+          letter-spacing: .1em; padding: 3px 7px; border-radius: 3px; line-height: 1;
+          border-left: 3px solid #999; }
+  .wbox-PANNING  { border-left-color: #5aa8ff; }
+  .wbox-TRACKING { border-left-color: #9a9aa2; }
+  .wbox-FROZEN   { border-left-color: #ff6347; }
+
+  /* grid: hidden at rest, revealed on hover over the thumbnail */
+  .cell .exif-strip { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+                      padding: 8px 9px; opacity: 0; transition: opacity .18s;
+                      background: linear-gradient(transparent, rgba(0,0,0,.8)); }
+  .cell:hover .exif-strip { opacity: 1; }
+
+  /* lightbox: strip overlaid on the bottom of the stage */
+  #lb-strip { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; pointer-events: none;
+              padding: 12px 16px; background: linear-gradient(transparent, rgba(0,0,0,.82)); }
+  #lb-strip .exif-strip { font-size: .8rem; }
+  #lb-strip:empty { display: none; }
   .lb-loading { position: absolute; font-family: var(--mono); font-size: .72rem; color: var(--dim); }
   .toggle.on { color: var(--fg) !important; border-color: #3a3a44 !important; }
   footer { padding: 2rem 1.4rem 3rem; font-family: var(--mono); font-size: .68rem; color: var(--dim); }
 </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="ic-shutter" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="9.5" y1="2.5" x2="14.5" y2="2.5" stroke="currentColor" stroke-width="1.7"/><line x1="12" y1="2.5" x2="12" y2="6" stroke="currentColor" stroke-width="1.7"/><line x1="12" y1="13.5" x2="12" y2="9.5" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="ic-aperture" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="12" y1="3" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="16.5" x2="14.6" y2="13.5" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="16.5" x2="9.4" y2="13.5" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ic-focal" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="ic-iso" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="3" y1="9.5" x2="21" y2="9.5" stroke="currentColor" stroke-width="1.3"/><line x1="3" y1="14.5" x2="21" y2="14.5" stroke="currentColor" stroke-width="1.3"/></symbol>
+  </defs></svg>
   <header>
     <h1>MOTO / RACE</h1>
     <span class="meta">{{COUNT}} frames · trackside</span>
@@ -88,9 +117,9 @@
       <span class="lb-loading" id="lb-loading" hidden>loading original…</span>
       <img id="lb-img" alt="">
       <button class="lb-nav next" id="lb-next" aria-label="Next">›</button>
+      <div id="lb-strip"></div>
     </div>
     <div class="lb-info">
-      <div class="lb-meta" id="lb-meta"></div>
       <div class="lb-cap" id="lb-cap"></div>
     </div>
   </div>
@@ -98,7 +127,7 @@
 <script>
   const PHOTOS = {{DATA}};
   const $ = (id) => document.getElementById(id);
-  const lb = $("lb"), lbImg = $("lb-img"), lbMeta = $("lb-meta"), lbCap = $("lb-cap"),
+  const lb = $("lb"), lbImg = $("lb-img"), lbStrip = $("lb-strip"), lbCap = $("lb-cap"),
         lbIndex = $("lb-index"), lbDl = $("lb-dl"), lbFull = $("lb-full"),
         lbLoading = $("lb-loading");
   let cur = -1, full = false;
@@ -119,7 +148,7 @@
       lbImg.src = large(p);              // derivative only
     }
     lbImg.alt = p.caption || "";
-    lbMeta.textContent = p.meta || "";
+    lbStrip.innerHTML = p._strip || "";
     lbCap.textContent = p.caption || "";
     lbIndex.textContent = `${p.name} · ${cur + 1}/${PHOTOS.length}`;
     lbDl.href = p.original;
