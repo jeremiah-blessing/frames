@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moto — race photography</title>
+<meta name="description" content="Motorcycle race-track photography.">
+<style>
+  :root {
+    --bg: #0a0a0b; --panel: #131316; --fg: #ececee; --dim: #8a8a93;
+    --line: #232329; --accent: #e6e6e6;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); }
+  a { color: inherit; text-decoration: none; }
+
+  header {
+    display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+    padding: 1.4rem 1.4rem 1rem; border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 1rem; letter-spacing: .04em; margin: 0; font-weight: 600; }
+  header .meta { font-family: var(--mono); font-size: .72rem; color: var(--dim); }
+
+  .grid { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; }
+  .cell { position: relative; height: 240px; overflow: hidden; background: var(--panel); }
+  .cell picture { display: block; width: 100%; height: 100%; }
+  .cell img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cell::after {
+    content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    transition: background .15s;
+  }
+  .cell:hover::after { background: rgba(0,0,0,.18); }
+  /* keep the last row from stretching to absurd widths */
+  .grid::after { content: ""; flex-grow: 999999; }
+
+  /* Lightbox */
+  .lb { position: fixed; inset: 0; background: rgba(6,6,8,.97); display: none;
+        flex-direction: column; z-index: 50; }
+  .lb.open { display: flex; }
+  .lb-bar { display: flex; align-items: center; justify-content: space-between;
+            padding: .7rem 1rem; font-family: var(--mono); font-size: .72rem; color: var(--dim); }
+  .lb-bar button, .lb-bar a {
+    font-family: var(--mono); font-size: .72rem; color: var(--dim);
+    background: none; border: 1px solid var(--line); border-radius: 4px;
+    padding: .35rem .6rem; cursor: pointer; transition: color .12s, border-color .12s;
+  }
+  .lb-bar button:hover, .lb-bar a:hover { color: var(--fg); border-color: #3a3a44; }
+  .lb-bar .actions { display: flex; gap: .5rem; }
+  .lb-stage { flex: 1; display: flex; align-items: center; justify-content: center;
+              min-height: 0; padding: 0 1rem; position: relative; }
+  .lb-stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .lb-nav { position: absolute; top: 0; bottom: 0; width: 28%; cursor: pointer;
+            background: none; border: 0; color: transparent; }
+  .lb-nav.prev { left: 0; } .lb-nav.next { right: 0; }
+  .lb-info { padding: .8rem 1rem 1.2rem; text-align: center; }
+  .lb-meta { font-family: var(--mono); font-size: .8rem; color: var(--accent); letter-spacing: .02em; }
+  .lb-cap { font-size: .85rem; color: var(--dim); margin-top: .35rem; }
+  .lb-loading { position: absolute; font-family: var(--mono); font-size: .72rem; color: var(--dim); }
+  .toggle.on { color: var(--fg) !important; border-color: #3a3a44 !important; }
+  footer { padding: 2rem 1.4rem 3rem; font-family: var(--mono); font-size: .68rem; color: var(--dim); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>MOTO / RACE</h1>
+    <span class="meta">{{COUNT}} frames · trackside</span>
+  </header>
+
+  <main class="grid">
+{{GRID}}
+  </main>
+
+  <footer>EXIF as shot · originals available on request</footer>
+
+  <div class="lb" id="lb" aria-hidden="true">
+    <div class="lb-bar">
+      <span id="lb-index" class="meta"></span>
+      <div class="actions">
+        <button class="toggle" id="lb-full" type="button" title="Swap in the full-resolution original">View full</button>
+        <a id="lb-dl" download>Download original</a>
+        <button id="lb-close" type="button" aria-label="Close">✕ close</button>
+      </div>
+    </div>
+    <div class="lb-stage">
+      <button class="lb-nav prev" id="lb-prev" aria-label="Previous">‹</button>
+      <span class="lb-loading" id="lb-loading" hidden>loading original…</span>
+      <img id="lb-img" alt="">
+      <button class="lb-nav next" id="lb-next" aria-label="Next">›</button>
+    </div>
+    <div class="lb-info">
+      <div class="lb-meta" id="lb-meta"></div>
+      <div class="lb-cap" id="lb-cap"></div>
+    </div>
+  </div>
+
+<script>
+  const PHOTOS = {{DATA}};
+  const $ = (id) => document.getElementById(id);
+  const lb = $("lb"), lbImg = $("lb-img"), lbMeta = $("lb-meta"), lbCap = $("lb-cap"),
+        lbIndex = $("lb-index"), lbDl = $("lb-dl"), lbFull = $("lb-full"),
+        lbLoading = $("lb-loading");
+  let cur = -1, full = false;
+
+  const large = (p) => p.sizes[p.sizes.length - 1].url; // 2000px webp (derivative, fast path)
+
+  function show(i, useFull) {
+    cur = (i + PHOTOS.length) % PHOTOS.length;
+    full = !!useFull;
+    const p = PHOTOS[cur];
+    lbLoading.hidden = true;
+    if (full) {
+      lbLoading.hidden = false;
+      lbImg.onload = () => { lbLoading.hidden = true; };
+      lbImg.src = p.original;            // original fetched ONLY here
+    } else {
+      lbImg.onload = null;
+      lbImg.src = large(p);              // derivative only
+    }
+    lbImg.alt = p.caption || "";
+    lbMeta.textContent = p.meta || "";
+    lbCap.textContent = p.caption || "";
+    lbIndex.textContent = `${p.name} · ${cur + 1}/${PHOTOS.length}`;
+    lbDl.href = p.original;
+    lbDl.setAttribute("download", p.name + ".jpg");
+    lbDl.textContent = `↓ Download original (${p.bytesLabel})`;
+    lbFull.textContent = full ? "Viewing full" : "View full";
+    lbFull.classList.toggle("on", full);
+  }
+
+  function open(i) { show(i, false); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); }
+  function close() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); lbImg.src = ""; cur = -1; }
+
+  document.querySelectorAll(".cell").forEach((cell, i) => {
+    cell.addEventListener("click", (e) => { e.preventDefault(); open(i); });
+  });
+  $("lb-close").addEventListener("click", close);
+  $("lb-prev").addEventListener("click", () => show(cur - 1, false));
+  $("lb-next").addEventListener("click", () => show(cur + 1, false));
+  lbFull.addEventListener("click", () => show(cur, !full)); // toggle derivative <-> original
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") show(cur - 1, false);
+    else if (e.key === "ArrowRight") show(cur + 1, false);
+  });
+</script>
+</body>
+</html>

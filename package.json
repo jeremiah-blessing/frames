@@ -1,0 +1,17 @@
+{
+  "name": "moto-gallery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static motorcycle race-track photo portfolio",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node src/build.mjs"
+  },
+  "dependencies": {
+    "exifr": "^7.1.3",
+    "sharp": "^0.33.5"
+  }
+}

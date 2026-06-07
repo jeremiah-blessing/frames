@@ -1,0 +1,522 @@
+[
+  {
+    "name": "moto-001",
+    "src": "oQwz7a.JPG",
+    "original": "originals/moto-001.jpg",
+    "width": 6000,
+    "height": 4000,
+    "bytes": 3255731,
+    "bytesLabel": "3 MB",
+    "meta": "1/400s · f/10 · 100mm · ISO 250",
+    "caption": "Canon EOS R8 · Jan 31, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-001-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-001-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-001-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-001-1000.jpg"
+  },
+  {
+    "name": "moto-002",
+    "src": "Agile-51861.jpg",
+    "original": "originals/moto-002.jpg",
+    "width": 3072,
+    "height": 3840,
+    "bytes": 5663180,
+    "bytesLabel": "5 MB",
+    "meta": "1/2000s · f/2.8 · 200mm · ISO 800",
+    "caption": "Canon EOS R6m2 · Jan 31, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-002-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-002-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-002-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-002-1000.jpg"
+  },
+  {
+    "name": "moto-003",
+    "src": "Agile-51423.jpg",
+    "original": "originals/moto-003.jpg",
+    "width": 5501,
+    "height": 3094,
+    "bytes": 7614150,
+    "bytesLabel": "7 MB",
+    "meta": "1/1600s · f/2.8 · 183mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-003-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-003-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-003-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-003-1000.jpg"
+  },
+  {
+    "name": "moto-004",
+    "src": "Agile-51400.jpg",
+    "original": "originals/moto-004.jpg",
+    "width": 5462,
+    "height": 3072,
+    "bytes": 6721029,
+    "bytesLabel": "6 MB",
+    "meta": "1/1600s · f/2.8 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-004-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-004-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-004-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-004-1000.jpg"
+  },
+  {
+    "name": "moto-005",
+    "src": "Agile-51401.jpg",
+    "original": "originals/moto-005.jpg",
+    "width": 3042,
+    "height": 3802,
+    "bytes": 4625792,
+    "bytesLabel": "4 MB",
+    "meta": "1/1600s · f/2.8 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-005-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-005-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-005-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-005-1000.jpg"
+  },
+  {
+    "name": "moto-006",
+    "src": "Agile-51767.jpg",
+    "original": "originals/moto-006.jpg",
+    "width": 2438,
+    "height": 3048,
+    "bytes": 3049616,
+    "bytesLabel": "3 MB",
+    "meta": "1/3200s · f/5 · 223mm · ISO 1250",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-006-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-006-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-006-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-006-1000.jpg"
+  },
+  {
+    "name": "moto-007",
+    "src": "Agile-51386.jpg",
+    "original": "originals/moto-007.jpg",
+    "width": 3093,
+    "height": 1740,
+    "bytes": 2268644,
+    "bytesLabel": "2 MB",
+    "meta": "1/100s · f/11 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-007-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-007-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-007-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-007-1000.jpg"
+  },
+  {
+    "name": "moto-008",
+    "src": "Agile-51383.jpg",
+    "original": "originals/moto-008.jpg",
+    "width": 2238,
+    "height": 2798,
+    "bytes": 2670047,
+    "bytesLabel": "3 MB",
+    "meta": "1/100s · f/11 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-008-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-008-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-008-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-008-1000.jpg"
+  },
+  {
+    "name": "moto-009",
+    "src": "Agile-51382.jpg",
+    "original": "originals/moto-009.jpg",
+    "width": 3120,
+    "height": 1755,
+    "bytes": 2428969,
+    "bytesLabel": "2 MB",
+    "meta": "1/100s · f/11 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-009-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-009-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-009-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-009-1000.jpg"
+  },
+  {
+    "name": "moto-010",
+    "src": "Agile-51380.jpg",
+    "original": "originals/moto-010.jpg",
+    "width": 2579,
+    "height": 3224,
+    "bytes": 4053385,
+    "bytesLabel": "4 MB",
+    "meta": "1/2500s · f/2.8 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-010-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-010-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-010-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-010-1000.jpg"
+  },
+  {
+    "name": "moto-011",
+    "src": "Agile-51381.jpg",
+    "original": "originals/moto-011.jpg",
+    "width": 5096,
+    "height": 2867,
+    "bytes": 6589996,
+    "bytesLabel": "6 MB",
+    "meta": "1/2500s · f/2.8 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-011-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-011-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-011-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-011-1000.jpg"
+  },
+  {
+    "name": "moto-012",
+    "src": "Agile-51722.jpg",
+    "original": "originals/moto-012.jpg",
+    "width": 2909,
+    "height": 1636,
+    "bytes": 2902305,
+    "bytesLabel": "3 MB",
+    "meta": "1/2500s · f/5 · 200mm · ISO 1600",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-012-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-012-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-012-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-012-1000.jpg"
+  },
+  {
+    "name": "moto-013",
+    "src": "Agile-51334.jpg",
+    "original": "originals/moto-013.jpg",
+    "width": 6422,
+    "height": 3612,
+    "bytes": 9371930,
+    "bytesLabel": "9 MB",
+    "meta": "1/1600s · f/2.8 · 200mm · ISO 160",
+    "caption": "Canon EOS R6 Mark III · Feb 1, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-013-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-013-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-013-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-013-1000.jpg"
+  },
+  {
+    "name": "moto-014",
+    "src": "Agile-51591.jpg",
+    "original": "originals/moto-014.jpg",
+    "width": 2768,
+    "height": 3460,
+    "bytes": 3781621,
+    "bytesLabel": "4 MB",
+    "meta": "1/160s · f/13 · 100mm · ISO 400",
+    "caption": "Canon EOS R6 Mark III · Feb 2, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-014-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-014-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-014-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-014-1000.jpg"
+  },
+  {
+    "name": "moto-015",
+    "src": "Agile-51558.jpg",
+    "original": "originals/moto-015.jpg",
+    "width": 2882,
+    "height": 3603,
+    "bytes": 2885044,
+    "bytesLabel": "3 MB",
+    "meta": "1/160s · f/11 · 135mm · ISO 320",
+    "caption": "Canon EOS R6 Mark III · Feb 2, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-015-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-015-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-015-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-015-1000.jpg"
+  },
+  {
+    "name": "moto-016",
+    "src": "Agile-51552.jpg",
+    "original": "originals/moto-016.jpg",
+    "width": 3618,
+    "height": 4522,
+    "bytes": 6860113,
+    "bytesLabel": "7 MB",
+    "meta": "1/3200s · f/5.6 · 300mm · ISO 1600",
+    "caption": "Canon EOS R6 Mark III · Feb 2, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-016-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-016-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-016-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-016-1000.jpg"
+  },
+  {
+    "name": "moto-017",
+    "src": "Agile-51548.jpg",
+    "original": "originals/moto-017.jpg",
+    "width": 4914,
+    "height": 3510,
+    "bytes": 7547795,
+    "bytesLabel": "7 MB",
+    "meta": "1/3200s · f/5.6 · 300mm · ISO 1250",
+    "caption": "Canon EOS R6 Mark III · Feb 2, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-017-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-017-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-017-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-017-1000.jpg"
+  },
+  {
+    "name": "moto-018",
+    "src": "3YbVyS.jpg",
+    "original": "originals/moto-018.jpg",
+    "width": 6852,
+    "height": 3854,
+    "bytes": 12281344,
+    "bytesLabel": "12 MB",
+    "meta": "1/1000s · f/5.6 · 363mm · ISO 400",
+    "caption": "Canon EOS R6 Mark III · Apr 12, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-018-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-018-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-018-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-018-1000.jpg"
+  },
+  {
+    "name": "moto-019",
+    "src": "WGIzpH.jpg",
+    "original": "originals/moto-019.jpg",
+    "width": 5651,
+    "height": 3179,
+    "bytes": 8028137,
+    "bytesLabel": "8 MB",
+    "meta": "1/1250s · f/6.3 · 400mm · ISO 1250",
+    "caption": "Canon EOS R6 Mark III · Apr 12, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-019-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-019-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-019-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-019-1000.jpg"
+  },
+  {
+    "name": "moto-020",
+    "src": "JoYW5S.jpg",
+    "original": "originals/moto-020.jpg",
+    "width": 3294,
+    "height": 4117,
+    "bytes": 5734635,
+    "bytesLabel": "5 MB",
+    "meta": "1/2000s · f/5.6 · 324mm · ISO 800",
+    "caption": "Canon EOS R6 Mark III · Apr 12, 2026",
+    "sizes": [
+      {
+        "w": 400,
+        "url": "img/moto-020-400.webp"
+      },
+      {
+        "w": 1000,
+        "url": "img/moto-020-1000.webp"
+      },
+      {
+        "w": 2000,
+        "url": "img/moto-020-2000.webp"
+      }
+    ],
+    "fallback": "img/moto-020-1000.jpg"
+  }
+]

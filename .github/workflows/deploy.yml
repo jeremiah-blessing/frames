@@ -1,0 +1,52 @@
+name: Build and deploy gallery
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only the latest deploy matters; cancel superseded runs.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # Auto-enables GitHub Pages (source: Actions) on first run.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      # npm ci fails the job (and therefore the deploy) on any install error.
+      - run: npm ci
+
+      # Build failure exits non-zero → workflow fails, nothing is deployed.
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
