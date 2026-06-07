@@ -19,3 +19,21 @@ export function classifyTechnique(denominator) {
   if (denominator < 1000) return "TRACKING";
   return "FROZEN";
 }
+
+// Turn a raw exifr object into the discrete display fields the strip renders.
+export function formatExif(exif = {}) {
+  const sp = shutterParts(exif.ExposureTime);
+  const shutter = sp ? sp.display : null;
+  const shutterDenominator = sp ? sp.denominator : null;
+  const technique = classifyTechnique(shutterDenominator);
+  const aperture = exif.FNumber != null ? `f/${+Number(exif.FNumber).toFixed(1)}` : null;
+  const focal = exif.FocalLength != null ? `${Math.round(exif.FocalLength)}mm` : null;
+  const iso = exif.ISO != null ? String(exif.ISO) : null;
+
+  const metaShutter = shutter ? (shutter.endsWith("s") ? shutter : `${shutter}s`) : null;
+  const meta = [metaShutter, aperture, focal, iso != null ? `ISO ${iso}` : null]
+    .filter(Boolean)
+    .join(" · ");
+
+  return { shutter, shutterDenominator, aperture, focal, iso, technique, meta };
+}

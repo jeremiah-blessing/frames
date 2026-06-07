@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { shutterParts, classifyTechnique } from "../src/exif.mjs";
+import { shutterParts, classifyTechnique, formatExif } from "../src/exif.mjs";
 
 test("shutterParts formats fast fractional shutter", () => {
   const r = shutterParts(0.000625); // 1/1600s
@@ -42,4 +42,45 @@ test("classifyTechnique zones", () => {
   assert.equal(classifyTechnique(3200), "FROZEN");
   assert.equal(classifyTechnique(0.5), "PANNING"); // very slow (>=1s)
   assert.equal(classifyTechnique(null), null);
+});
+
+test("formatExif full frozen frame", () => {
+  const r = formatExif({ ExposureTime: 0.000625, FNumber: 2.8, ISO: 160, FocalLength: 200 });
+  assert.deepEqual(r, {
+    shutter: "1/1600",
+    shutterDenominator: 1600,
+    aperture: "f/2.8",
+    focal: "200mm",
+    iso: "160",
+    technique: "FROZEN",
+    meta: "1/1600s · f/2.8 · 200mm · ISO 160",
+  });
+});
+
+test("formatExif panning frame classifies PANNING", () => {
+  const r = formatExif({ ExposureTime: 0.01, FNumber: 11, ISO: 160, FocalLength: 200 });
+  assert.equal(r.technique, "PANNING");
+  assert.equal(r.shutterDenominator, 100);
+  assert.equal(r.aperture, "f/11");
+});
+
+test("formatExif tracking frame", () => {
+  const r = formatExif({ ExposureTime: 0.0025 }); // 1/400
+  assert.equal(r.technique, "TRACKING");
+  assert.equal(r.shutterDenominator, 400);
+});
+
+test("formatExif omits missing fields and nulls technique without shutter", () => {
+  const r = formatExif({ FNumber: 2.8 });
+  assert.equal(r.shutter, null);
+  assert.equal(r.shutterDenominator, null);
+  assert.equal(r.technique, null);
+  assert.equal(r.aperture, "f/2.8");
+  assert.equal(r.meta, "f/2.8");
+});
+
+test("formatExif on empty exif", () => {
+  const r = formatExif({});
+  assert.equal(r.meta, "");
+  assert.equal(r.technique, null);
 });
