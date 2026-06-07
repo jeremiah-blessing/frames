@@ -1,6 +1,11 @@
 // Pure renderer: photo (with discrete EXIF fields) -> strip HTML string.
 // Used by build.mjs for the grid (compact) and the lightbox (full).
 
+//
+// No HTML escaping: icon names are passed by this module, technique is a fixed
+// set (PANNING/TRACKING/FROZEN/null), and stat values come from formatExif —
+// all derived from numeric EXIF, never user input. Keep this true if refactoring.
+
 function stat(icon, val) {
   if (!val) return "";
   return `<span class="icstat"><svg class="ic" aria-hidden="true"><use href="#ic-${icon}"></use></svg>${val}</span>`;
